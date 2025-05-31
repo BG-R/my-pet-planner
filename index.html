@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Pet Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Pet Planner</h1>
+        <form id="addPetForm"><!-- JS will handle form submission -->
+            <label for="petName">Pet Name:</label>
+            <input type="text" id="petName" required>
+
+            <label for="petBreed">Breed:</label>
+            <input type="text" id="petBreed">
+
+            <label for="petBirthdate">Birthdate:</label>
+            <input type="date" id="petBirthdate">
+
+            <button type="submit">Add Pet</button>
+        </form>
+        <div id="petList"><!-- JS will populate pet list here --></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
