@@ -54,6 +54,19 @@ form#addPetForm button {
     background: #fafafa;
 }
 
+.add-reminder-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.add-reminder-form input,
+.add-reminder-form select,
+.add-reminder-form button {
+    padding: 4px;
+    font-size: 0.9rem;
+}
+
 .reminder-list {
     list-style: none;
     padding-left: 0;
