@@ -16,17 +16,19 @@ function scheduleNotification(reminderDate, message) {
 function renderPets(petsArr) {
     const list = document.getElementById('petList');
     list.innerHTML = '';
-
     petsArr.forEach((pet) => {
         const card = document.createElement('div');
         card.className = 'pet-card';
 
         const header = document.createElement('h2');
         header.textContent = `${pet.name} (${pet.breed})`;
+        card.appendChild(header);
 
         const birth = document.createElement('p');
         birth.textContent = `Birthdate: ${pet.birthdate}`;
+        card.appendChild(birth);
 
+        // --- Inline “Add Reminder” form ---
         const formDiv = document.createElement('div');
         formDiv.className = 'add-reminder-form';
 
@@ -34,6 +36,7 @@ function renderPets(petsArr) {
         dateInput.type = 'date';
         dateInput.className = 'reminder-date';
         dateInput.required = true;
+        formDiv.appendChild(dateInput);
 
         const typeSelect = document.createElement('select');
         typeSelect.className = 'reminder-type';
@@ -53,43 +56,37 @@ function renderPets(petsArr) {
         typeSelect.appendChild(optVac);
         typeSelect.appendChild(optMeds);
         typeSelect.appendChild(optGroom);
+        formDiv.appendChild(typeSelect);
 
         const addBtn = document.createElement('button');
         addBtn.className = 'add-reminder-button';
         addBtn.textContent = 'Add';
-        // JS listens for clicks on each .add-reminder-button
-
-        formDiv.appendChild(dateInput);
-        formDiv.appendChild(typeSelect);
+        // JS will listen for clicks on each .add-reminder-button
+        addBtn.addEventListener('click', () => {
+            const date = dateInput.value;
+            const type = typeSelect.value;
+            if (!date || !type) return; // require both fields
+            pet.reminders.push({ date, type });
+            localStorage.setItem('pets', JSON.stringify(petsArr));
+            renderPets(petsArr);
+            renderUpcoming(petsArr);
+            scheduleNotification(date, `Reminder for ${pet.name}: ${type} on ${date}`);
+        });
         formDiv.appendChild(addBtn);
 
+        card.appendChild(formDiv);
+        // --- End inline form ---
+
+        // Reminder list for this pet
         const ul = document.createElement('ul');
         ul.className = 'reminder-list';
         (pet.reminders || []).forEach((rem) => {
             const li = document.createElement('li');
             li.textContent = `${rem.type} on ${rem.date}`;
-            const done = document.createElement('input');
-            done.type = 'checkbox';
-            li.appendChild(document.createTextNode(' '));
-            li.appendChild(done); // optional "Done" checkbox
             ul.appendChild(li);
         });
-
-        addBtn.addEventListener('click', () => {
-            const date = dateInput.value;
-            const type = typeSelect.value;
-            if (!date || !type) return;
-            pet.reminders.push({ date, type });
-            localStorage.setItem('pets', JSON.stringify(pets));
-            renderPets(pets);
-            renderUpcoming(pets);
-            scheduleNotification(date, `Reminder for ${pet.name}: ${type} on ${date}`);
-        });
-
-        card.appendChild(header);
-        card.appendChild(birth);
-        card.appendChild(formDiv);
         card.appendChild(ul);
+
         list.appendChild(card);
     });
 }
@@ -103,12 +100,22 @@ function renderUpcoming(petsArr) {
             all.push({ petName: pet.name, type: rem.type, date: rem.date });
         });
     });
-    all.sort((a, b) => new Date(a.date) - new Date(b.date));
-    all.forEach((item) => {
+
+    // If no reminders at all, show placeholder
+    if (all.length === 0) {
         const li = document.createElement('li');
-        li.textContent = `${item.petName}: ${item.type} on ${item.date}`;
+        li.className = 'no-reminders';
+        li.textContent = 'No upcoming reminders.';
         upcoming.appendChild(li);
-    });
+    } else {
+        // Sort by date and render each one once
+        all.sort((a, b) => new Date(a.date) - new Date(b.date));
+        all.forEach((item) => {
+            const li = document.createElement('li');
+            li.textContent = `${item.petName}: ${item.type} on ${item.date}`;
+            upcoming.appendChild(li);
+        });
+    }
 }
 
 // DOMContentLoaded handler
