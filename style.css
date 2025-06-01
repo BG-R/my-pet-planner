@@ -1,78 +1,166 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    max-width: 600px;
-    width: 100%;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.2em;
+  text-align: center;
+}
+
+header p {
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 form#addPetForm {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 form#addPetForm label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 form#addPetForm input,
 form#addPetForm button {
-    padding: 8px;
-    font-size: 1rem;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 form#addPetForm button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-#petList {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+form#addPetForm button:hover,
+.add-reminder-button:hover,
+.affiliate-link:hover {
+  opacity: 0.9;
+}
+
+#noPetsMessage {
+  text-align: center;
+  color: #999;
+  margin-bottom: 20px;
 }
 
 .pet-card {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 12px;
-    background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  background-color: #fafafa;
+  margin-bottom: 20px;
+}
+
+.pet-card h2 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
 }
 
 .add-reminder-form {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.add-reminder-form input,
+.add-reminder-form input[type="date"],
 .add-reminder-form select,
 .add-reminder-form button {
-    padding: 4px;
-    font-size: 0.9rem;
+  flex: 1;
+  min-width: 100px;
+  padding: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-reminder-form button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
 
 .reminder-list {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
 }
 
 .reminder-list li {
-    margin-bottom: 4px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+#upcoming {
+  margin-top: 30px;
+}
+
+#upcoming h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#upcomingList {
+  list-style: none;
+  padding: 0;
+}
+
+#upcomingList li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.no-reminders {
+  color: #999;
+  text-align: center;
+}
+
+.affiliate-link {
+  display: inline-block;
+  margin: 8px 0 0 0;
+  padding: 6px 12px;
+  background-color: #ff9900;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.affiliate-link:hover {
+  background-color: #cc7a00;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 40px;
 }
